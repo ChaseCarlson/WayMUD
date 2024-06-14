@@ -23,3 +23,12 @@ void WayMUD::NetworkShutdown()
 	WSACleanup();
 #endif
 }
+
+int WayMUD::NetworkGetLastError()
+{
+#if defined(_WIN32)
+	return WSAGetLastError();
+#else
+	return errno;
+#endif
+}

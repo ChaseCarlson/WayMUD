@@ -25,7 +25,7 @@ bool WayMUD::Socket::SetNonBlocking()
 
 WayMUD::Socket::Socket()
 {
-	this->sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+	this->sock_fd = socket(AF_INET6, SOCK_STREAM, 0);
 	SetNonBlocking();
 }
 
@@ -37,11 +37,7 @@ WayMUD::Socket::Socket(SOCKET_DESCRIPTOR fd)
 
 WayMUD::Socket::~Socket()
 {
-#if defined(_WIN32)
-	closesocket(this->sock_fd);
-#else
-	close(this->sock_fd);
-#endif
+	SOCKET_CLOSE(this->sock_fd);
 }
 
 SOCKET_DESCRIPTOR WayMUD::Socket::GetDescriptor()
